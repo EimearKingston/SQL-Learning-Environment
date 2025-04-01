@@ -1,0 +1,19 @@
+1.Determine how many films and how many actors 
+are represented in the database.
+2.Determine how many films were released in 1975. 
+3.List the ids of all films in which Clint Eastwood appears. 
+4.List the names and years of 
+all films in which Clint Eastwood appears. Order the films chronologically.
+5.List all the actors who appeared in Citizen Kane. 
+6.List all the actors who appeared in either Vertigo or Rear Window. 
+7.List all the films made by the director with id number 28. 
+8.List all the films made by the director of Godfather, The. 
+9.List all remakes, i.e. pairs of films with the same name; give the name and the year in each case. List all obvious sequels with names like Superman II (consider only the first four sequels, i.e., II to V). 
+10.List all film-sequel pairs where the sequel has the same name as the original with the Roman numeral II appended. 
+11.List all pairs of films by the same director where one film received a good score (> 8) and another a poor score (< 3). 
+12.List all the films in which both Clint Eastwood and Richard Burton appeared. 
+13.List all the actors who have appeared in a film with Al Pacino. 
+14.List all the actors who appeared in both Big Sleep, The and Casablanca. 
+15.List all the actors who made a film during the 1950s and also in the 1980s. 
+16.For each year during the 1960s, list the number of films made, and the first and last (alphabetically by title). 
+17.List all the actors who appeared in at least ten films and the names of their films.

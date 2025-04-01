@@ -1,0 +1,28 @@
+import sqlite3
+
+# Connect to the database
+conn = sqlite3.connect('students.sqlite')  # Ensure the path to your SQLite file is correct
+conn.row_factory = sqlite3.Row  # Use Row factory to get dictionary-like access
+
+# Create a cursor
+cursor = conn.cursor()
+
+# Sample query (change 'students' to your actual table name)
+cursor.execute("SELECT * FROM students;")  # Fetch all rows from the students table
+
+# Initialize an empty list to store specific values (e.g., student names)
+student_names = []
+
+# Iterate through the rows
+for row in cursor.fetchall():
+    student_names.append(row['name'])  # Access the 'name' field in the row
+    print(f"Current name added: {row['name']}")
+    print(f"Names so far: {student_names}")  # Print the current state of the list
+    print("---------")
+
+# After the loop, you can print the final list of names
+print("Final list of student names:", student_names)
+
+# Close the cursor and connection
+cursor.close()
+conn.close()
