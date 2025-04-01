@@ -135,12 +135,17 @@ def larkfunc(q1):
         
         expected = ", ".join(e.expected) if e.expected else "nothing"
         return f"Syntax error at line {e.line}, column {e.column}. Expected: {expected}, but found: '{e.token}'."
-    except UnexpectedCharacters as e:
+    except UnexpectedCharacters as e: 
+
+        words = q1[e.column:] 
+        # print(words) 
+        words = words.split() 
+        error = e.char + words[0]
         
-        return f"Syntax error at line {e.line}, column {e.column}. Unexpected character: '{e.char}'."
+        return f"Syntax error at line {e.line}, column {e.column}. Unexpected word: '{error}'."
     except UnexpectedEOF as e:
         
-        expected = ", ".join(e.expected) if e.expected else "nothing"
+        expected = ", ".join(e.expected) if e.expected else "nothing" 
         return f"Syntax error: Unexpected end of input. Expected: {expected}."
     except Exception as e:
         
@@ -240,9 +245,9 @@ def traverse_parts(node, sql_parts, in_join):
             sql_parts["ORDER BY"] += 1 
             for child in node.children: 
                 if type(child) == Tree and child.data == "condition": 
-                    print("condi")
+                    # print("condi")
                     for grandchild in child.children: 
-                        print("grand", grandchild.children[0]) 
+                        # print("grand", grandchild.children[0]) 
                         for grandgrandchild in grandchild.children: 
                             # print(grandgrandchild)
                             if type(grandgrandchild) == Tree: 
@@ -272,8 +277,8 @@ def traverse_parts(node, sql_parts, in_join):
                         if type(grandchild) == Token: 
                             if grandchild.value in sql_parts.keys():
                                 sql_parts[grandchild.value] += 1 
-                            else: 
-                                print("error") 
+                            # else: 
+                            #     print("error") 
         
 
         
@@ -304,7 +309,7 @@ def extract_structure(tree):
                     ) 
     
     return structure 
-queries = extract_sql_queries("solutions5.sql") 
+# queries = extract_sql_queries("solutions5.sql") 
 
 # for query in queries:
 #     result = larkfunc(query.upper())
@@ -475,7 +480,7 @@ def traverse(node, columns, in_select=False):
                                             for subsubchild in subchild.children:
                                                 if isinstance(subsubchild, Tree):
                                                     if subsubchild.data == "func_call": 
-                                                        print("call") 
+                                                        # print("call") 
                                                         for subsubsubchild in subsubchild.children:
                                                             if isinstance(subsubsubchild, Tree):
                                                                 if subsubsubchild.data == "func_name": 
@@ -535,14 +540,14 @@ FROM movies
 WHERE yr = 1975
 GROUP BY yr;
 '''  
-query2 = '''SELECT yr, COUNT(*)
+query2 = '''SELET yr, COUNT(*)
 FROM movies
 WHERE yr = 1975
 ORDER BY yr ASC;'''
-tquery = larkfunc(query2.upper()) 
+# tquery = larkfunc(query2.upper()) 
 # print(extract_columns_names(tquery)) 
 # tquery2 = larkfunc(query2.upper())
-print(tquery.pretty()) 
-print(tquery)  
+# print(tquery.pretty()) 
+# print(tquery)  
 
-print(extract_sql_parts(tquery))
+# print(extract_sql_parts(tquery))

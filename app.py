@@ -117,8 +117,8 @@ def get_workbook(workbook_id):
     
     
     questions = read(workbook["questions_file"]) 
-    print(workbook["questions_file"]) 
-    print(questions)
+    # print(workbook["questions_file"]) 
+    # print(questions)
     
     solutions = extract(workbook["solutions_file"]) 
     
@@ -390,6 +390,8 @@ def question_page(workbook_id, question_id):
     evaluation = None 
     query_eval = None 
     preamble = workbook['preamble'] 
+    terminate = None 
+    query_error = None 
  
     user_db = get_db("app.db") 
     username = g.user 
@@ -428,7 +430,52 @@ def question_page(workbook_id, question_id):
             
         try: 
             try: 
-                # struct_user = extract_sql_parts(larkfunc(user_query))  
+                user_query = user_query.rstrip()
+                if user_query[-1] != ";": 
+                    terminate = False 
+                    user_query += ";" 
+                    # print(user_query)
+                if terminate == False: 
+                    query_error = " Remember to terminate queries with a ';'"  
+                tree = larkfunc(user_query) 
+                if type(tree) == str: 
+                    status = "in_progress" 
+                    all_statuses = user_db.execute(
+                        '''SELECT question_id, status FROM questions 
+                        WHERE username = ? AND workbook_id = ?''',
+                        (username, workbook_id)
+                    ).fetchall() 
+                    
+                    question_statuses = {} 
+                    for row in all_statuses:
+                        q_id = row["question_id"]  
+                        question_statuses[q_id] = row["status"] 
+                    result = None
+                    error = tree 
+                    result = None 
+                    # print(error) 
+                    return render_template(
+                            "question.html",
+                            form=form,
+                            workbook_id=workbook_id,
+                            workbook=workbook,
+                            question_id=question_id,
+                            question=question_text,
+                            result=result,
+                            error=error,  
+                            evaluation=None,
+                            total_questions=len(questions),
+                            status="in_progress",
+                            question_statuses=question_statuses,
+                            preamble=preamble,
+                            subtitle=f"Question {question_id + 1}", 
+                            
+                            user_type=g.user_type, 
+                            query_error = query_error
+                        ) 
+                    
+
+                
                 user_result = db.execute(user_query).fetchall() 
             except SqliteError as e: 
                 
@@ -446,7 +493,7 @@ def question_page(workbook_id, question_id):
                 result = None
                 error = f"SQLite Error: {str(e)}" 
                 result = None 
-                print(error) 
+                # print(error) 
                 return render_template(
             "question.html",
             form=form,
@@ -463,9 +510,10 @@ def question_page(workbook_id, question_id):
             preamble=preamble,
             subtitle=f"Question {question_id + 1}", 
             
-            user_type=g.user_type,
+            user_type=g.user_type, 
+            query_error = query_error
         ) 
-            struct_user = extract_sql_parts(larkfunc(user_query)) 
+            struct_user = extract_sql_parts(tree) 
             model_query = correct_query[0]
              
             if len(correct_query)>1: 
@@ -481,11 +529,11 @@ def question_page(workbook_id, question_id):
                     i+=1
             # else: 
             #     model_query = correct_query[0] 
-            print(model_query) 
+            # print(model_query) 
             # user_result = db.execute(user_query).fetchall() 
             print(True) 
             correct_result = db.execute(model_query).fetchall() 
-            print(True) 
+            # print(True) 
             # print(user_query) 
             # print(correct_query) 
             # user_db = get_db("app.db") 
@@ -506,7 +554,7 @@ def question_page(workbook_id, question_id):
                 check_cols(user_result, correct_result, user_query, model_query),
                 check_rows(user_result, correct_result, user_query, model_query, db),
             ) 
-            print("evaluation: " + str(evaluation[1]))
+            # print("evaluation: " + str(evaluation[1]))
             if evaluation[1] == "Correct": 
                 # print("Correct") 
                 status = "completed"  
@@ -522,11 +570,13 @@ def question_page(workbook_id, question_id):
                 
                 # session[f"completed_{workbook_id}"] = completed_questions
                 # session.modified = True 
-            print(True)
+            # print(True) 
             
             struct_model_1 = extract_sql_parts(larkfunc(model_query)) 
-            
+            # print("User", struct_user) 
+            # print("User", struct_model_1)
             query_eval = query_analysis(struct_user, struct_model_1) 
+            # print(query_eval) 
             if len(query_eval) > 2: 
                 i = 1 
                 q_str_eval = "" 
@@ -535,7 +585,7 @@ def question_page(workbook_id, question_id):
                     i += 1  
                 state = query_eval[0] 
                 query_eval = [state, q_str_eval] 
-            print(query_eval[0])
+            # print(query_eval)
             
 
             # tree = larkfunc(user_query) 
@@ -571,7 +621,8 @@ def question_page(workbook_id, question_id):
                 preamble = preamble, 
                 subtitle = "Question " + str(question_id +1 ), 
                 user_type = g.user_type,  
-                error = error
+                error = error, 
+                query_error = query_error
                 # query_eval_lines = query_eval_lines
                 
                 
@@ -622,7 +673,7 @@ def question_page(workbook_id, question_id):
             error = f"Error executing query: {e}\nTraceback:\n{tb_str}" 
             result = None 
             
-            print(error)
+            # print(error)
     # completed_questions = session.get(f"completed_{workbook_id}", []) 
     return render_template(
         "question.html",
@@ -639,7 +690,8 @@ def question_page(workbook_id, question_id):
         question_statuses = question_statuses, 
         preamble = preamble, 
         subtitle = "Question " + str(question_id +1), 
-        user_type = g.user 
+        user_type = g.user, 
+        query_error = query_error
         
 
         
@@ -647,7 +699,10 @@ def question_page(workbook_id, question_id):
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("start"))
+    return redirect(url_for("start")) 
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
  
     
