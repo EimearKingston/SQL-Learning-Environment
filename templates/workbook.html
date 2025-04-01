@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+
+{% block main_content %} 
+{% if workbook %}
+        
+
+        {% if workbook.questions %}
+            <ul>
+                {% for i in range(workbook.questions | length) %}
+                    <li class="ql {{ question_statuses.get(i, 'incomplete') }}">
+                        <a href="{{ url_for('question_page', workbook_id=workbook_id, question_id=i) }}">
+                            Question {{ i + 1 }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No questions available in this workbook.</p>
+        {% endif %}
+        
+    {% else %}
+        <p>Workbook not found.</p>
+    {% endif %}
+{% endblock %}

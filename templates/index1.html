@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+{% block main_content %} 
+
+    <ul class = "workbooks">
+        {% for workbook in workbooks %}
+            <li class="workbook">
+                <!-- <a href="{{ url_for('workbook_page', workbook_id=workbook.id) }}">{{ workbook.title }}</a>  -->
+                <a href="{{ url_for('workbook_page', workbook_id=workbook.id) }}"><img src="{{url_for('static', filename='book.png')}}" alt="book"/></a> 
+                <p>{{ workbook.title }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

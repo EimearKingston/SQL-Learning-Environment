@@ -1,0 +1,448 @@
+body {
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: #1e1e1e;  */
+    background: url('your-animation.gif') no-repeat center center fixed;
+    background-size: cover;
+    color: #dcdcdc;
+} 
+/* header{ 
+    background-color: #4e94ce; 
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #3a3a3a;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 900px; 
+    
+/* } */ 
+title { 
+    text-align: center;
+    color: #dcdcdc;
+    font-size: 32px;
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #dcdcdc;
+    font-size: 32px;
+    margin-top: 20px;
+} 
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden initially */
+    width: 250px;
+    height: 100%;
+    background: #444;
+    transition: 0.3s ease-in-out;
+    padding-top: 60px; 
+}
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li:hover {
+    background: #555;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-btn { 
+    /* float: left; */
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    display: inline-block;
+} 
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+} 
+
+.evaluation { 
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #3a3a3a;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 900px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px;
+} 
+
+header p { 
+    margin-left: auto; 
+    margin-right: 50px; 
+    color: #dcdcdc;
+}
+
+
+
+ 
+header { 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;  
+    background-color: #2d2d2d; 
+    border-radius: 0;
+    padding: 20px;
+    border-bottom: 1px solid #3a3a3a;
+    width: 100%;
+    max-width: none;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+} 
+
+.user-type{ 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 20px; 
+
+} 
+
+.user-type a { 
+    background-color: #4e94ce;
+    border-radius: 10px;
+    padding: 20px;
+    border: none;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+} 
+
+
+
+.user { 
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+@media (hover: hover){
+    .user-type a:hover {
+        background-color: white; 
+        color: #4e94ce;
+    } 
+}
+header h1 {
+    color: #dcdcdc;
+    font-size: 24px;
+    margin: 0;
+}
+
+form {
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #3a3a3a;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 900px;
+} 
+
+li { 
+    list-style-type: none;
+} 
+.main-content {
+    flex-grow: 1; 
+    border-radius: 10px; 
+    flex-direction: column;
+    padding: 20px;
+}
+
+textarea.query {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    border: 1px solid #555;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    resize: vertical;
+} 
+
+/* https://stackoverflow.com/questions/27069142/change-div-background-color-on-click-using-only-css */
+textarea.query:focus {
+        border-color: #4e94ce;
+        outline: none;
+        box-shadow: 0 0 5px rgba(78, 148, 206, 0.8);
+} 
+
+@viewport {  
+    width: device-width;
+} 
+
+.submit {
+    padding: 12px 20px;
+    background-color: #4e94ce;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+} 
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    font-size: 16px;
+    box-sizing: border-box;
+} 
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #dcdcdc;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border-color: #4e94ce;
+    outline: none;
+    box-shadow: 0 0 5px rgba(78, 148, 206, 0.8);
+} 
+
+@media (hover: hover){
+    .submit:hover {
+        background-color: #3c82b5;
+    } 
+} 
+
+.container {
+    display: flex;
+    flex-direction: row; /* Side-by-side layout */
+    gap: 20px; /* Adds space between aside and main-content */
+    width: 100%; /* Ensure the container takes full width */
+    max-width: 1200px; /* Optional: Set a maximum width */
+    margin: 0 auto; 
+}
+
+#preamble { 
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #3a3a3a;  
+    width: fit-content; 
+    margin-bottom: 20px;
+}
+
+aside {
+    width: 250px; 
+    background-color: #252526;
+    border-radius: 10px;
+    padding: 20px; 
+    flex-shrink: 0; 
+    margin-top: 20px; 
+    height: auto; 
+    max-height: 80vh; 
+    overflow-y: auto; 
+    direction: rtl;   
+} 
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+aside a { 
+    text-align: center;
+}
+
+.ql {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ql>a {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    color: #dcdcdc;
+    background-color: #333;
+    border-radius: 5px;
+    border: 1px solid #444;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+} 
+
+@media (hover: hover){
+    .ql>a:hover {
+        background-color: #4e94ce;
+    } 
+}
+
+.ql.completed a {
+    color: #5aaf2d;
+}
+
+.ql.incomplete a {
+    color: #e95757;
+}
+
+.ql.in_progress a {
+    color: #f1c40f;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #555;
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: #333;
+    color: #dcdcdc;
+    font-weight: bold;
+}
+
+td {
+    background-color: #2a2a2a;
+    color: #dcdcdc;
+}
+
+td.header {
+    font-weight: bold;
+    background-color: #444;
+}
+
+a{
+    background-color: #4e94ce;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+} 
+
+.nav_bt { 
+    position: fixed; 
+    bottom: 20px; 
+    left: 5%; 
+    display: flex;
+    justify-content: center;
+    gap: 10px; 
+    background-color: #2d2d2d;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #3a3a3a;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+@media (hover: hover){
+    a:hover {
+        background-color: #3c82b5;
+    } 
+} 
+
+img{ 
+    width:200px;
+}
+
+.workbook a{ 
+    background-color: #1e1e1e; 
+    text-decoration: none;
+} 
+
+
+div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+    section {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    aside {
+        width: 100%;
+        margin-right: 0;
+    } 
+    .container {
+        flex-direction: column; 
+        gap: 20px; 
+    }
+
+    form {
+        width: 100%;
+    }
+
+    textarea.query {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}

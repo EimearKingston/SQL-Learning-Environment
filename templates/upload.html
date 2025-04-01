@@ -1,0 +1,52 @@
+{% extends "base.html" %} 
+
+{% block main_content %} 
+<!-- <a href = "{{ url_for('start') }}">Home</a>   -->
+<h1>Upload Your Workbook</h1>
+<form method="POST" enctype="multipart/form-data" class = "upload">
+    {{ form.hidden_tag() }}
+    
+    {{ form.workbook_name.label }}  
+    {{ form.workbook_name() }} 
+    {% for error in form.workbook_name.errors %} 
+        {{error}} 
+    {% endfor %}      
+    </br> 
+    </br> 
+    {{ form.database.label }}  
+    {{ form.database() }} 
+    {% for error in form.database.errors %} 
+        {{error}} 
+    {% endfor %}      
+    </br> 
+    </br>  
+    {{ form.existing_db.label }}
+    {{ form.existing_db(class = "select") }}
+    {% for error in form.existing_db.errors %}
+    {{error}}
+    {% endfor %} 
+    </br> 
+    </br> 
+
+    {{ form.question_file.label }}  
+    {{ form.question_file(class = "file_label") }} 
+    {% for error in form.question_file.errors %} 
+        {{error}} 
+    {% endfor %} 
+    </br> 
+    </br>  
+    {{ form.solutions_file.label }}  
+    {{ form.solutions_file() }} 
+    {% for error in form.solutions_file.errors %} 
+        {{error}} 
+    {% endfor %} 
+    </br> 
+    </br> 
+    {{ form.submit(class = "submit") }}     
+    
+</form>
+
+    {% if message %}
+        <p class = "message">{{ message }}</p>
+    {% endif %}
+{% endblock %}

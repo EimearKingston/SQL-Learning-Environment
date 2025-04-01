@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+{% block body_id %}start{% endblock %} 
+{% block main_content %} 
+ 
+
+<h2 class = "profile">Pick a Profile Type</h2> 
+<div class = "user-type"> 
+<a href = "{{ url_for('index1') if g.user else url_for('login') }}">I'm a Student</a> 
+<a href = "{{ url_for('upload') if g.user and user_type == 'teacher' else url_for('teacher_login')  }}">I'm a Teacher</a> 
+</div> 
+
+{% endblock %}
+

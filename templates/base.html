@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>SQL Learning Environment</title> 
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"  />
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <!-- <script src="{{ url_for('static', filename='game.js') }}" type="module"></script> -->
+    </head>
+
+<body id="{% block body_id %}default-id{% endblock %}">
+    <header> 
+        
+        <h1>
+            
+            <button class="menu-btn" onclick="toggleMenu()">☰</button> 
+            {{ subtitle }} 
+        </h1> 
+        <nav class="sidebar"> 
+            <button class="close-btn" onclick="toggleMenu()">X</button> 
+            <ul>
+                <li><a href="/">Home</a></li> 
+                {% if g.user %} 
+                <li><a href="/index1">Workbooks</a></li> 
+                <li><a href="/logout">Logout</a></li> 
+                {% endif %}
+                
+                
+            </ul>
+        </nav> 
+        {% if g.user %} 
+        
+            <p>Username: {{ g.user }}</p>
+         
+        {% endif %} 
+
+        
+        <!-- <nav>
+            </ul>
+            <li><a href="{{ url_for('login') }}">&#127968Home</a></li>
+        </nav> -->
+         
+    </header>
+    <main>
+        
+        {% block main_content %}
+    
+        {% endblock %}
+        
+    </main>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+{% extends "base.html" %} 
+{% block main_content %} 
+<section>
+    <div class = "container">  
+    <aside> 
+        <ul>
+            {% for i in range(workbook.questions | length) %}
+                <li class = "ql {{ question_statuses.get(i, 'incomplete') }}">
+                    <a href="{{ url_for('question_page', workbook_id=workbook_id, question_id=i) }}">
+                    Question {{ i + 1 }}
+                </a>
+                </li>
+            {% endfor %}
+        </ul>
+        
+    </aside> 
+     
+    <div class="main-content">  
+    {% if preamble is not none %} 
+    <p id = 'preamble'>{{ preamble }}</p> 
+    {% endif %} 
+     
+    <!-- <div class="main-content">   -->
+    <h1>Question {{ question_id + 1 }}</h1>
+        <p>{{ question }}</p>
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <p>{{ form.query.label }}</p>
+            <!-- <p>{{ form.query() }}</p> --> 
+            <textarea id="{{ form.query.id }}" name="{{ form.query.name }}" class="{{ form.query.render_kw['class'] }}" rows="10" cols="80" placeholder="Enter your SQL query here...">{{ form.query.data}}</textarea>
+            <p>{{ form.submit(class = "submit")}}</p>
+        </form> 
+    
+        {% if result is not none %}
+    {% if evaluation is not none %} 
+    <div class = "evaluation"> 
+        <h2>Evaluation:</h2>
+        {% if evaluation_lines %}
+            
+                <p>Results Evaluation:</p>
+                {% for line, is_correct in evaluation_lines %}
+                    <p class="{{ 'correct' if is_correct else 'incorrect' }}">{{ line }}<br></p>
+                {% endfor %}
+            
+        {% endif %}
+        
+        <p>Query Evaluation:</p>
+        <p class="{{ 'correct' if query_eval[1] else 'incorrect' }}">
+            {{ query_eval[0] }}
+        </p>
+        {% endif %} 
+    {% endif %} 
+    </div>
+        {% if result is not none%}
+            <h2>Result:</h2>
+
+            <table> 
+                <tr> 
+                    {% if result is not string %}
+                        {% for column in result[0].keys() %}
+                            <td class = "header"><strong>{{ column }}</strong></td>
+                        {% endfor %}
+                    </tr>
+                    {% for row in result %}
+                        <tr>
+                            {% for value in row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %} 
+        {% else %} 
+                    <h2>Error</h2> 
+                    <p>{{ error }}</p>
+        {% endif %}
+            </table> 
+            {% endif %} 
+            </div> 
+            </div>
+        <div class = "nav_bt">
+            {% if question_id > 0 %}
+                <a href="{{ url_for('question_page', workbook_id=workbook_id, question_id=question_id - 1) }}">&#x2B05Previous</a>
+            {% endif %} 
+            <a href="{{ url_for('workbook_page', workbook_id=workbook_id) }}">Back to Workbook</a>
+            {% if question_id < total_questions - 1 %}
+                <a href="{{ url_for('question_page', workbook_id=workbook_id, question_id=question_id + 1) }}">Next&#x27A1</a>
+            {% endif %}
+        
+
+        
+    </div>
+        
+</section>
+{% endblock %}
+        
+        

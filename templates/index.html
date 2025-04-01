@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+
+{% block main_content %} 
+<form action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    
+    
+    {% for field in form %}
+        {% if field.type != 'SubmitField' and field.type != 'CSRFTokenField' %}
+            <div class = "question">
+                {{ field.label }}<br>
+                {{ field(size=50) }}<br>
+                
+                {% for error in field.errors %}
+                    <span style="color: red;">{{ error }}</span><br>
+                {% endfor %}
+            </div>
+        {% endif %} 
+        {% if field.type == 'SubmitField' %}
+        <div>
+            {{ field }}
+        </div>
+        {% endif %}
+    {% endfor %}
+    
+    
+</form> 
+
+{% if results %}
+    <h3>Query Results:</h3>
+    <ul>
+        {% for question, result, evaluate in results %}
+            <li>
+                    
+                    <ul>
+                        {% for row in result %}
+                            <li>
+                                {% for value in row %}
+                                    {{ value }}
+                                {% endfor %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

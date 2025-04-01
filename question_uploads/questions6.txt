@@ -1,0 +1,19 @@
+The objective of this lab is to develop our skills with SQL's subquery features. Try to solve
+ each task below without using joins even if joins provide the most natural approach to tacking
+the problem.
+This lab will use the familiar movies database.
+1.List the ids of all actors who appeared in Big Sleep, The.
+2.List, in chronological order, the names of the films made by the director of Citizen Kane.
+3.List the names of all actors who appeared in Big Sleep, The.
+4.List the ids of all films that were either made in the 1950s or had Elizabeth Taylor in them.
+5.List the name and scores of the film(s) with the best score.
+6.List the ids of the actors with at least 10 films to their credit.
+7.List the name and scores of the film(s) with scores within 10% of the best score.
+8.List the names of all the actors that appeared in the most terrible films (those with scores below 3.0).
+9.List the names and scores of the films with the best and the worst scores.
+10.List the years and films made before the first film made by the director of Citizen Kane.
+11.List all the films with a score at least as good as the best film made in the 1940s.
+12.What is the greatest number of films made by any director?
+13.List the director id and the number of films of the director with the greatest number of films.
+14.List, in chronological order, all the films by the director with the greatest number of films.
+15.List all the films starring Diane Keaton made by the director of Bananas.
